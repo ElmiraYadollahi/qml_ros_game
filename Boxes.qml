@@ -10,31 +10,31 @@ Rectangle {
 
     property var listColors
     property int order: 0 // order of the bead on its line from left to right, 0 being left
-    property string taskTurn: 'child'
+    property string taskTurn: 'robot'
     property int this_row_nb
 
     function colorSelection(taskTurn, order){
         //console.log("my_row", this_row_nb);
         if (taskTurn === "robot"){
             if (this_row_nb === 0){
-                listColors = ['#ffa600','red','blue', '#ffa600','red','blue','red','blue']
+                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                 return (listColors[order])
             }
 
             else if (this_row_nb === 1){
-                listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray']
+                listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray','gray']
                 return (listColors[order])
             }
         }
 
         else if (taskTurn === "child") {
                 if (this_row_nb === 1){
-                    listColors = ['#ffa600','red','blue', '#ffa600','red','blue','red','blue']
+                    listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                     return (listColors[order])
                 }
 
                 else if (this_row_nb === 0){
-                    listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray']
+                    listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray','gray']
                     return (listColors[order])
                 }
             }

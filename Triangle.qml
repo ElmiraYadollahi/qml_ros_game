@@ -29,7 +29,7 @@ Item {
         //console.log("my_row", this_row_nb);
         if (taskTurn === "robot"){
             if (this_row_nb === 0){
-                listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
+                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                 return (listColors[order])
             }
 
@@ -41,7 +41,7 @@ Item {
 
         else if (taskTurn === "child") {
             if (this_row_nb === 1){
-                listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
+                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                 return (listColors[order])
             }
 

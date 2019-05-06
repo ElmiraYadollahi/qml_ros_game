@@ -113,7 +113,7 @@ Rectangle {
 
 
     Repeater {
-        model: 8
+        model: 9
         Boxes {
             id: boxes
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
@@ -129,7 +129,7 @@ Rectangle {
     }
 
     Repeater {
-        model: 8
+        model: 9
         Ball {
             id: ball
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
