@@ -8,23 +8,20 @@ import Ros 1.0
 
 
 Rectangle {
+
     id: ball
 
+    // Property definitions
     property var listColors
     property int order: 0 // order of the bead on its line from left to right, 0 being left
-    property string taskTurn: 'robot'
+    property string taskTurn: 'child'
     property int this_row_nb
 
-    //width: 50; height: 50
 
-
-    //color: "red"
-    //opacity: (600.0 - rect.x) / 600
-
-
+    // Functions
     function colorSelection(taskTurn, order){
         //console.log("my_row", this_row_nb);
-        if (taskTurn === "child"){
+        if (taskTurn === "robot"){
             if (this_row_nb === 0){
                 listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
                 return (listColors[order])
@@ -36,7 +33,7 @@ Rectangle {
             }
         }
 
-        else if (taskTurn === "robot") {
+        else if (taskTurn === "child") {
             if (this_row_nb === 1){
                 listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
                 return (listColors[order])
@@ -53,7 +50,7 @@ Rectangle {
     }
 
     function disableMove(){
-        if (taskTurn === "child"){
+        if (taskTurn === "robot"){
             if (this_row_nb === 0){
                 return (Drag.XandYAxis)
             }
@@ -62,13 +59,123 @@ Rectangle {
                 return (0)
             }
         }
-        else if (taskTurn === "robot"){
+        else if (taskTurn === "child"){
             if (this_row_nb === 1){
                 return (Drag.XandYAxis)
             }
 
             else if (this_row_nb === 0){
                 return (0)
+            }
+        }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////
+    // Publishers
+
+   // RosStringPublisher {
+   //     id: bead_sizePublisher
+   //     topic: "bead/size"
+   // }
+
+    onXChanged:{
+        ball_xChangePublisher.text = '' + x
+        ball_radiusPublisher.text = '' + ball.radius
+        box_widthPublisher.text = '' + abacusArea.width *0.98
+        box_heightPublisher.text = '' + abacusArea.height * 0.49 - abacusArea.width *0.01
+        //row_countChangePublisher.text = ''+root.rowCounter
+        //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
+        //bead_radiusPublisher.text = body.radius
+    }
+
+    onYChanged:{
+        ball_yChangePublisher.text = '' + y
+        //row_countChangePublisher.text = ''+root.rowCounter
+        //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
+        //bead_radiusPublisher.text = body.radius
+    }
+
+    RosStringPublisher {
+        id: ball_xChangePublisher
+        topic: "box"+this_row_nb+"/ball"+order+"/xchange"
+    }
+
+    RosStringPublisher {
+        id: ball_yChangePublisher
+        topic: "box"+this_row_nb+"/ball"+order+"/ychange"
+    }
+
+    RosStringPublisher {
+        id: ball_radiusPublisher
+        topic: "box"+this_row_nb+"/ball"+order+"/radius"
+    }
+
+    RosStringPublisher {
+        id: box_widthPublisher
+        topic: "box" + this_row_nb + "/width"
+    }
+
+    RosStringPublisher {
+        id: box_heightPublisher
+        topic: "box" + this_row_nb + "/height"
+    }
+
+
+    //////////////////////////////////////////////////////////////////////
+    // Subscribers
+
+    RosStringSubscriber {
+        id: ball_xChangeSubscriber
+        topic: "game/box" + this_row_nb + "/ball" + order + "/setX"
+
+        onTextChanged:{
+            ball.x = parseInt(text)
+            //root.updateRowCounter()
+        }
+    }
+
+    RosStringSubscriber {
+        id: game_turnSubscriber
+        topic: "game/turn"
+
+        onTextChanged:{
+            taskTurn = text
+            //root.updateRowCounter()
+        }
+    }
+
+    RosStringSubscriber {
+        id: ball_yChangeSubscriber
+        topic: "game/box" + this_row_nb + "/ball" + order + "/setY"
+
+        onTextChanged:{
+            ball.y = parseInt(text)
+            //root.updateRowCounter()
+        }
+    }
+
+    //objectName: "bead_"+my_row.index+ "_"+order
+    property string name
+
+    RosStringSubscriber {
+        id: abacus_reset
+        topic: "reset/order"
+        onTextChanged:{
+            reset = parseInt(text)
+            if (reset === 1){
+                restartRows()
+            }
+        }
+    }
+
+    RosStringSubscriber {
+        id: abacus_row0_reset
+        topic: "reset/row0/order"
+        onTextChanged:{
+            reset0 = parseInt(text)
+            if (reset0 === 1){
+                restartRow0()
             }
         }
     }

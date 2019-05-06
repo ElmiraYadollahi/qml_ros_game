@@ -1,6 +1,10 @@
 // Show a triangle by pure QML
 import QtQuick 2.0
 
+
+import './shared/'
+import Ros 1.0
+
 Item {
     id : component
     //width: 100
@@ -8,7 +12,7 @@ Item {
 
     property var listColors
     property int order: 0 // order of the bead on its line from left to right, 0 being left
-    property string taskTurn: 'robot'
+    property string taskTurn: 'child'
     property int this_row_nb
     clip : true
 
@@ -23,7 +27,7 @@ Item {
 
     function colorSelection(taskTurn, order){
         //console.log("my_row", this_row_nb);
-        if (taskTurn === "child"){
+        if (taskTurn === "robot"){
             if (this_row_nb === 0){
                 listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
                 return (listColors[order])
@@ -35,7 +39,7 @@ Item {
             }
         }
 
-        else if (taskTurn === "robot") {
+        else if (taskTurn === "child") {
             if (this_row_nb === 1){
                 listColors = ['#ffa600','red','blue', '#ffa600','red','blue','#ffa600','red']
                 return (listColors[order])
@@ -52,7 +56,7 @@ Item {
     }
 
     function disableMove(){
-        if (taskTurn === "child"){
+        if (taskTurn === "robot"){
             if (this_row_nb === 0){
                 return (Drag.XandYAxis)
             }
@@ -61,7 +65,7 @@ Item {
                 return (0)
             }
         }
-        else if (taskTurn === "robot"){
+        else if (taskTurn === "child"){
             if (this_row_nb === 1){
                 return (Drag.XandYAxis)
             }
@@ -70,6 +74,30 @@ Item {
                 return (0)
             }
         }
+    }
+
+    onXChanged:{
+        tri_xChangePublisher.text = ''+x
+        //row_countChangePublisher.text = ''+root.rowCounter
+        //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
+        //bead_radiusPublisher.text = body.radius
+    }
+
+    onYChanged:{
+        Tri_yChangePublisher.text = ''+x
+        //row_countChangePublisher.text = ''+root.rowCounter
+        //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
+        //bead_radiusPublisher.text = body.radius
+    }
+
+    RosStringPublisher {
+        id: tri_xChangePublisher
+        topic: "box"+this_row_nb+"/tri"+order+"/xchange"
+    }
+
+    RosStringPublisher {
+        id: triangle_yChangePublisher
+        topic: "box"+this_row_nb+"/tri"+order+"/ychange"
     }
 
     // The index of corner for the triangle to be attached
@@ -87,6 +115,7 @@ Item {
         transformOrigin: Item.Center
         rotation : 45
         scale : 1.414
+        border.color: "white"
     }
 
 

@@ -143,7 +143,7 @@ Rectangle {
 
     }
 
-    Repeater {
+    /*Repeater {
         model: 8
        Triangle {
             id: tri
@@ -156,7 +156,7 @@ Rectangle {
             this_row_nb :row_nb
         }
 
-    }
+    }*/
 
 
 }

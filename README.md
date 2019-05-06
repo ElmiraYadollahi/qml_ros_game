@@ -37,10 +37,16 @@ updating the `.pc` files in ROS:
 
 
 
-### send topic on bead : 
+### send topic on changing the balls or squares position : 
 
 ```
  rostopic pub -1abacus/row1/bead4/setX std_msgs/String \"600\"
+ 
+ 
+ 
+ rostopic pub game/box1/ball7/setY std_msgs/String "'350'"
+ 
+ rostopic pub game/box1/ball7/seY std_msgs/String "'1500'"
 ```
 
 Running
