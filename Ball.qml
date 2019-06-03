@@ -16,6 +16,9 @@ Rectangle {
     property int order: 0 // order of the bead on its line from left to right, 0 being left
     property string taskTurn: 'robot'
     property int this_row_nb
+    property int box_nb
+    property int ball_nb
+    property int reset: 0
 
 
     // Functions
@@ -66,6 +69,16 @@ Rectangle {
 
             else if (this_row_nb === 0){
                 return (0)
+            }
+        }
+    }
+
+
+    function randomoize(){
+
+        for (var k=0; k<box_nb; k++){
+            for (var j=0; j<object_nb; j++){
+                ballRepeater.itemAt(j).x = abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
             }
         }
     }
@@ -171,7 +184,7 @@ Rectangle {
         onTextChanged:{
             reset = parseInt(text)
             if (reset === 1){
-                restartRows()
+                randomoize()
             }
         }
     }

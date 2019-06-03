@@ -13,6 +13,7 @@ Rectangle {
     property int tolerance: 20
     property Body pressedBody: null
     readonly property int wallMeasure: 40
+    property int object_nb: 9
 
     signal reset
 
@@ -113,7 +114,8 @@ Rectangle {
 
 
     Repeater {
-        model: 9
+        id: squareRepeater
+        model: object_nb
         Boxes {
             id: boxes
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
@@ -123,13 +125,16 @@ Rectangle {
             rotation: 0
             order: index
             this_row_nb :row_nb
+            box_nb:2
+
 
         }
 
     }
 
     Repeater {
-        model: 9
+        id: ballRepeater
+        model: object_nb
         Ball {
             id: ball
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
@@ -139,6 +144,8 @@ Rectangle {
             height: width
             order: index
             this_row_nb :row_nb
+            box_nb:2
+            ball_nb: object_nb
         }
 
     }

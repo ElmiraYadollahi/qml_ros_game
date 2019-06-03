@@ -12,6 +12,9 @@ Rectangle {
     property int order: 0 // order of the bead on its line from left to right, 0 being left
     property string taskTurn: 'robot'
     property int this_row_nb
+    property int reset: 0
+    property int box_nb
+
 
     function colorSelection(taskTurn, order){
         //console.log("my_row", this_row_nb);
@@ -63,6 +66,15 @@ Rectangle {
                 return (0)
             }
 
+        }
+    }
+
+    function randomoize(){
+
+        for (var k=0; k<box_nb; k++){
+            for (var j=0; j<object_nb; j++){
+                squareRepeater.itemAt(j).x = abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
+            }
         }
     }
 
@@ -134,6 +146,18 @@ Rectangle {
             //root.updateRowCounter()
         }
     }
+
+    RosStringSubscriber {
+        id: abacus_reset
+        topic: "reset/order"
+        onTextChanged:{
+            reset = parseInt(text)
+            if (reset === 1){
+                randomoize()
+            }
+        }
+    }
+
 
     //width: 50; height: 50
     x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4
