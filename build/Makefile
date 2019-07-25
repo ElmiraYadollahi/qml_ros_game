@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../qml_ros_game -I. -I/opt/ros/kinetic/include -I/home/yadollah/Qt/5.11.1/gcc_64/include -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtQuick -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtGui -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtQml -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtNetwork -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../qml_ros_game -I. -I../../../../devel/include -I../../../std_msgs/include -I/opt/ros/kinetic/include -I/home/yadollah/Qt/5.11.1/gcc_64/include -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtQuick -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtGui -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtQml -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtNetwork -I/home/yadollah/Qt/5.11.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/yadollah/Qt/5.11.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = qml_ros_game1.0.0
-DISTDIR = /home/yadollah/catkin_ws/src/abacus_scenario/qml_ros_game/build/.tmp/qml_ros_game1.0.0
+DISTDIR = /home/yadollah/catkin_ws/src/object_game_perspective_taking/qml_ros_game/build/.tmp/qml_ros_game1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/yadollah/Qt/5.11.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/ros/kinetic/lib -lroscpp /usr/lib/x86_64-linux-gnu/libboost_chrono.so /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_signals.so /usr/lib/x86_64-linux-gnu/libboost_system.so -lrosconsole -lrosconsole_log4cxx -lrosconsole_backend_interface /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so /usr/lib/x86_64-linux-gnu/libboost_atomic.so /usr/lib/x86_64-linux-gnu/libpthread.so -lroscpp_serialization -lxmlrpcpp -lrostime -lcpp_common /usr/lib/x86_64-linux-gnu/libconsole_bridge.so -L/home/yadollah/Qt/5.11.1/gcc_64/lib -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/yadollah/catkin_ws/devel/lib -L/opt/ros/kinetic/lib -lroscpp /usr/lib/x86_64-linux-gnu/libboost_chrono.so /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_signals.so /usr/lib/x86_64-linux-gnu/libboost_system.so -lrosconsole -lrosconsole_log4cxx -lrosconsole_backend_interface /usr/lib/x86_64-linux-gnu/liblog4cxx.so /usr/lib/x86_64-linux-gnu/libboost_regex.so /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so /usr/lib/x86_64-linux-gnu/libboost_atomic.so /usr/lib/x86_64-linux-gnu/libpthread.so -lroscpp_serialization -lxmlrpcpp -lrostime -lcpp_common /usr/lib/x86_64-linux-gnu/libconsole_bridge.so -L/home/yadollah/Qt/5.11.1/gcc_64/lib -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -159,10 +159,6 @@ DIST          = /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_sensors.pri \
@@ -190,13 +186,6 @@ DIST          = /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_waylandcompositor_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webview.pri \
@@ -351,10 +340,6 @@ Makefile: ../qml_ros_game.pro /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++/
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_sensors.pri \
@@ -382,13 +367,6 @@ Makefile: ../qml_ros_game.pro /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++/
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_waylandcompositor_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets.pri \
-		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets_private.pri \
 		/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webview.pri \
@@ -539,10 +517,6 @@ Makefile: ../qml_ros_game.pro /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++/
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_quickwidgets_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_remoteobjects_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_repparser_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_scxml_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_sensors.pri:
@@ -570,13 +544,6 @@ Makefile: ../qml_ros_game.pro /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/linux-g++/
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_waylandcompositor_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webchannel_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webengine_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecore_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets.pri:
-/home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webenginewidgets_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_websockets_private.pri:
 /home/yadollah/Qt/5.11.1/gcc_64/mkspecs/modules/qt_lib_webview.pri:
@@ -666,15 +633,16 @@ compiler_rcc_clean:
 qrc_qml.cpp: ../qml.qrc \
 		/home/yadollah/Qt/5.11.1/gcc_64/bin/rcc \
 		../Button.qml \
+		../Wall.qml \
+		../Boxes.qml \
 		../Bead.qml \
 		../AbacusRow.qml \
+		../Triangle.qml \
 		../main.cpp \
 		../CorrectButton.qml \
 		../AbacusArea.qml \
-		../main.qml \
 		../Ball.qml \
-		../Boxes.qml \
-		../Triangle.qml \
+		../main.qml \
 		../shared/ImageBoxBody.qml \
 		../shared/CircleBody.qml \
 		../shared/PolygonBody.qml \

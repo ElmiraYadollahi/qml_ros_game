@@ -14,17 +14,20 @@ Rectangle {
     // Property definitions
     property var listColors
     property int order: 0 // order of the bead on its line from left to right, 0 being left
-    property string taskTurn: 'robot'
+    property string taskTurn
     property int this_row_nb
     property int box_nb
     property int ball_nb
     property int reset: 0
+    property int collect: 0
+    property int counter: 0
 
 
     // Functions
     function colorSelection(taskTurn, order){
         //console.log("my_row", this_row_nb);
-        if (taskTurn === "robot"){
+        //console.log("task_turn", taskTurn)
+        if (taskTurn === "child"){
             if (this_row_nb === 0){
                 listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                 return (listColors[order])
@@ -36,7 +39,7 @@ Rectangle {
             }
         }
 
-        else if (taskTurn === "child") {
+        else if (taskTurn === "robot") {
             if (this_row_nb === 1){
                 listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
                 return (listColors[order])
@@ -46,6 +49,10 @@ Rectangle {
                 listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray', 'gray']
                 return (listColors[order])
             }
+        }
+        else if (taskTurn === "null"){
+            listColors = ['gray','gray','gray', 'gray','gray','gray','gray','gray', 'gray']
+            return (listColors[order])
         }
 
 
@@ -53,7 +60,7 @@ Rectangle {
     }
 
     function disableMove(){
-        if (taskTurn === "robot"){
+        if (taskTurn === "child"){
             if (this_row_nb === 0){
                 return (Drag.XandYAxis)
             }
@@ -62,7 +69,7 @@ Rectangle {
                 return (0)
             }
         }
-        else if (taskTurn === "child"){
+        else if (taskTurn === "robot"){
             if (this_row_nb === 1){
                 return (Drag.XandYAxis)
             }
@@ -70,6 +77,11 @@ Rectangle {
             else if (this_row_nb === 0){
                 return (0)
             }
+        }
+        else if (taskTurn === "null"){
+                return (0)
+
+
         }
     }
 
@@ -93,6 +105,12 @@ Rectangle {
    // }
 
     onXChanged:{
+        if (counter > 100){
+            anything_xChangePublisher.text = '' + x
+            counter = 0
+        }
+        counter = counter + 1
+
         ball_xChangePublisher.text = '' + x
         ball_radiusPublisher.text = '' + ball.radius
         box_widthPublisher.text = '' + abacusArea.width *0.98
@@ -102,8 +120,17 @@ Rectangle {
         //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
         //bead_radiusPublisher.text = body.radius
     }
+    onCollectChanged: {
+        ball_xChangePublisher.text = '' + x
+        ball_yChangePublisher.text = '' + y
+        ball_radiusPublisher.text = '' + ball.radius
+        box_widthPublisher.text = '' + abacusArea.width *0.98
+        box_heightPublisher.text = '' + abacusArea.height * 0.49 - abacusArea.width *0.01
+        box_maxRadiusPublisher.text = abacusArea.width * 0.02 + abacusArea.width * 0.1
+    }
 
     onYChanged:{
+        //anything_xChangePublisher.text = '' + x
         ball_yChangePublisher.text = '' + y
         //row_countChangePublisher.text = ''+root.rowCounter
         //row_lengthPublisher.text = this_row.width - body.radius - body.radius * 0.3
@@ -112,17 +139,17 @@ Rectangle {
 
     RosStringPublisher {
         id: ball_xChangePublisher
-        topic: "box"+this_row_nb+"/ball"+order+"/xchange"
+        topic: "box"+this_row_nb+"/circulo"+order+"/xchange"
     }
 
     RosStringPublisher {
         id: ball_yChangePublisher
-        topic: "box"+this_row_nb+"/ball"+order+"/ychange"
+        topic: "box"+this_row_nb+"/circulo"+order+"/ychange"
     }
 
     RosStringPublisher {
         id: ball_radiusPublisher
-        topic: "box"+this_row_nb+"/ball"+order+"/radius"
+        topic: "box"+this_row_nb+"/circulo"+order+"/radius"
     }
 
     RosStringPublisher {
@@ -137,7 +164,12 @@ Rectangle {
 
     RosStringPublisher {
         id: box_maxRadiusPublisher
-        topic: "game/ball/max"
+        topic: "game/circle/max"
+    }
+
+    RosStringPublisher {
+        id: anything_xChangePublisher
+        topic: "box/something/change"
     }
 
 
@@ -146,7 +178,7 @@ Rectangle {
 
     RosStringSubscriber {
         id: ball_xChangeSubscriber
-        topic: "game/box" + this_row_nb + "/ball" + order + "/setX"
+        topic: "game/box" + this_row_nb + "/circulo" + order + "/setX"
 
         onTextChanged:{
             ball.x = parseInt(text)
@@ -166,7 +198,7 @@ Rectangle {
 
     RosStringSubscriber {
         id: ball_yChangeSubscriber
-        topic: "game/box" + this_row_nb + "/ball" + order + "/setY"
+        topic: "game/box" + this_row_nb + "/circulo" + order + "/setY"
 
         onTextChanged:{
             ball.y = parseInt(text)
@@ -174,8 +206,15 @@ Rectangle {
         }
     }
 
+    RosStringSubscriber {
+        id: publish_everything
+        topic: "collect/positions"
+        onTextChanged:{
+            collect = parseInt(text)
+            }
+        }
 
-    //objectName: "bead_"+my_row.index+ "_"+order
+
     property string name
 
     RosStringSubscriber {
@@ -197,6 +236,16 @@ Rectangle {
             if (reset0 === 1){
                 restartRow0()
             }
+        }
+    }
+
+    RosStringSubscriber {
+        id: change_balls
+        topic: "reset/level/numbers"
+        onTextChanged:{
+            object_nb = parseInt(text)
+            //randomoize()
+
         }
     }
 

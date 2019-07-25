@@ -13,7 +13,7 @@ Rectangle {
     property int tolerance: 20
     property Body pressedBody: null
     readonly property int wallMeasure: 40
-    property int object_nb: 9
+    property int object_nb: 6
 
     signal reset
 
@@ -119,11 +119,12 @@ Rectangle {
         Boxes {
             id: boxes
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
-            y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.35
+            y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
             width: abacusArea.width * 0.03 + Math.random() * abacusArea.width * 0.05
             height: width
             rotation: 0
             order: index
+            taskTurn: "null"
             this_row_nb :row_nb
             box_nb:2
 
@@ -138,11 +139,12 @@ Rectangle {
         Ball {
             id: ball
             x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
-            y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.35
+            y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
             rotation: 0
             width: abacusArea.width * 0.03 + Math.random() * abacusArea.width * 0.05
             height: width
             order: index
+            taskTurn: "null"
             this_row_nb :row_nb
             box_nb:2
             ball_nb: object_nb
