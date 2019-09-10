@@ -29,7 +29,7 @@ Rectangle {
         //console.log("task_turn", taskTurn)
         if (taskTurn === "child"){
             if (this_row_nb === 0){
-                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
+                listColors = ['#ffa600','#ffa600', '#ffa600','#ffa600','red','red','blue','blue','blue']
                 return (listColors[order])
             }
 
@@ -41,7 +41,7 @@ Rectangle {
 
         else if (taskTurn === "robot") {
             if (this_row_nb === 1){
-                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
+                listColors = ['#ffa600','#ffa600', '#ffa600','#ffa600','red','red','blue','blue','blue']
                 return (listColors[order])
             }
 
@@ -89,12 +89,21 @@ Rectangle {
     function randomoize(){
 
         for (var k=0; k<box_nb; k++){
-            for (var j=0; j<object_nb; j++){
-                ballRepeater.itemAt(j).x = abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
+            for (var j=0; j<object_nb_c; j++){
+                ballRepeater.itemAt(j).x = positionRandomizerCircle(j)
+                ballRepeater.itemAt(j).y = abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
             }
         }
     }
 
+    function positionRandomizerCircle(ind){
+        if ( ind === 0 | ind === 1  ){
+            return (abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4)
+        }
+        else if (ind === 2 | ind === 3){
+            return (abacusArea.width * 0.5 + Math.random() * abacusArea.width * 0.4)
+        }
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // Publishers
@@ -243,9 +252,18 @@ Rectangle {
         id: change_balls
         topic: "reset/level/numbers"
         onTextChanged:{
-            object_nb = parseInt(text)
-            //randomoize()
-
+            if (text === "facil"){
+                object_nb_c = 3
+                object_nb_s = 3
+            }
+            if (text === "medio"){
+                object_nb_c = 4
+                object_nb_s = 7
+            }
+            if (text === "dificil"){
+                object_nb_c = 9
+                object_nb_s = 9
+            }
         }
     }
 

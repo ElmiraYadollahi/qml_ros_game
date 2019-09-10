@@ -14,6 +14,8 @@ Rectangle {
     property Body pressedBody: null
     readonly property int wallMeasure: 40
     property int object_nb: 6
+    property int object_nb_s: 7
+    property int object_nb_c: 4
 
     signal reset
 
@@ -112,39 +114,57 @@ Rectangle {
         }
     }*/
 
+    function positionRandomizerSquare(ind){
+        if ( ind === 0 | ind === 3 | ind === 4 ){
+            return (abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4)
+        }
+        else if (ind === 1 | ind === 2 | ind === 5 | ind === 6){
+            return (abacusArea.width * 0.5 + Math.random() * abacusArea.width * 0.4)
+        }
+    }
+
+    function positionRandomizerCircle(ind){
+        if ( ind === 0 | ind === 1  ){
+            return (abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4)
+        }
+        else if (ind === 2 | ind === 3){
+            return (abacusArea.width * 0.5 + Math.random() * abacusArea.width * 0.4)
+        }
+    }
+
+
 
     Repeater {
         id: squareRepeater
-        model: object_nb
+        model: object_nb_s
         Boxes {
             id: boxes
-            x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
+            x: positionRandomizerSquare(index)
+            //x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
             y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
-            width: abacusArea.width * 0.03 + Math.random() * abacusArea.width * 0.05
+            width: abacusArea.width * 0.05 + Math.random() * abacusArea.width * 0.04
             height: width
             rotation: 0
             order: index
-            taskTurn: "null"
+            taskTurn: "robot"
             this_row_nb :row_nb
             box_nb:2
-
-
         }
 
     }
 
     Repeater {
         id: ballRepeater
-        model: object_nb
+        model: object_nb_c
         Ball {
             id: ball
-            x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
+            x: positionRandomizerCircle(index)
             y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
             rotation: 0
-            width: abacusArea.width * 0.03 + Math.random() * abacusArea.width * 0.05
+            width: abacusArea.width * 0.05 + Math.random() * abacusArea.width * 0.04
             height: width
             order: index
-            taskTurn: "null"
+            taskTurn: "robot"
             this_row_nb :row_nb
             box_nb:2
             ball_nb: object_nb

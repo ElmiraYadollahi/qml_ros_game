@@ -22,7 +22,7 @@ Rectangle {
         //console.log("my_row", this_row_nb);
         if (taskTurn === "child"){
             if (this_row_nb === 0){
-                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
+                listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','red','blue','blue']
                 return (listColors[order])
             }
 
@@ -34,7 +34,7 @@ Rectangle {
 
         else if (taskTurn === "robot") {
                 if (this_row_nb === 1){
-                    listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','blue','blue','blue']
+                    listColors = ['#ffa600','#ffa600', '#ffa600','red','red','red','red','blue','blue']
                     return (listColors[order])
                 }
 
@@ -83,11 +83,24 @@ Rectangle {
     function randomoize(){
 
         for (var k=0; k<box_nb; k++){
-            for (var j=0; j<object_nb; j++){
-                squareRepeater.itemAt(j).x = abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.8
+            for (var j=0; j<object_nb_s; j++){
+                squareRepeater.itemAt(j).x = positionRandomizerSquare(j)
+                squareRepeater.itemAt(j).y = abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.32
             }
         }
     }
+
+    function positionRandomizerSquare(ind){
+        if ( ind === 0 | ind === 3 | ind === 4 ){
+            return (abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4)
+        }
+        else if (ind === 1 | ind === 2 | ind === 5 | ind === 6){
+            return (abacusArea.width * 0.5 + Math.random() * abacusArea.width * 0.4)
+        }
+    }
+
+
+
 
     //////////////////////////////////////////////////////////////////////////
     // Publishers
@@ -200,16 +213,31 @@ Rectangle {
         id: change_balls
         topic: "reset/level/numbers"
         onTextChanged:{
-            object_nb = parseInt(text)
-            //randomoize()
+            if (text === "facil"){
+                object_nb_c = 3
+                object_nb_s = 3
+            }
+            if (text === "medio"){
+                object_nb_c = 4
+                object_nb_s = 7
+            }
+            if (text === "dificil"){
+                object_nb_c = 9
+                object_nb_s = 9
+            }
         }
     }
 
 
     //width: 50; height: 50
-    x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4
+
+    //x: positionRandomizer(index)
     y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.4
-    width: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.1
+    //x: positionRandomizer()
+    //y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.4
+    //width: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.1
+    x: abacusArea.width * 0.02 + Math.random() * abacusArea.width * 0.4
+    //y: abacusArea.width * 0.02 + Math.random() * abacusArea.height* 0.4
     height: width
     rotation: Math.random() * 360
     color: colorSelection(taskTurn, order)
